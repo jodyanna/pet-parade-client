@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import userContext from "./context/userContext";
 import './App.css';
+import Login from "./components/Login";
 
 const initUserState = {
   id: null,
@@ -17,7 +18,7 @@ const initUserState = {
   dateModified: null
 };
 
-function App() {
+export default function App() {
   const [user, setUser] = useState(initUserState);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -50,7 +51,7 @@ function App() {
     <userContext.Provider value={{user: user, isLoggedIn: isLoggedIn, login: login, logout: logout}}>
       <Router>
       <div className="App">
-      
+      <Login></Login>
       <Switch>
         <Route>
           
@@ -61,5 +62,3 @@ function App() {
     </userContext.Provider>
   );
 }
-
-export default App;
