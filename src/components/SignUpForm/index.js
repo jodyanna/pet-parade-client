@@ -3,10 +3,16 @@ import {Link} from "react-router-dom";
 import styles from "./index.module.css";
 import errorIcon from "./error-icon.png";
 
-export default function LoginForm({login, triggerRedirect}) {
+
+export default function SignUpForm({login, triggerRedirect}) {
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({
+    username: {
+      message: "",
+      isValid: true
+    },
     email: {
       message: "",
       isValid: true
@@ -17,6 +23,7 @@ export default function LoginForm({login, triggerRedirect}) {
     }
   });
 
+  const handleUsernameChange = e => setUsername(e.target.value)
   const handleEmailChange = e => setEmail(e.target.value)
   const handlePasswordChange = e => setPassword(e.target.value)
 
@@ -26,31 +33,44 @@ export default function LoginForm({login, triggerRedirect}) {
     validateForm()
       .then(isValid => {
         if (isValid) {
+          let data = {
+            "userName": username,
+            "password": password,
+            "userEmail": email,
+          }
+
           fetch("", {
-              method: 'GET'
-            })
-            .then(res => res.json())
+            method: "POST",
+            body: JSON.stringify(data)
+          }).then(res => res.json())
             .then(res => {
-              login(res);
-              triggerRedirect();
+              if (res.result) {
+                data.userId = res.id;
+                delete data.password;
+
+                login(data);
+                triggerRedirect();
+              }
             })
-            .catch(err => console.log(err));
+            .catch(error => console.log(error));
         }
       })
   }
 
   const validateForm = async () => {
     let errors = {
+      username: {},
       email: {},
       password: {}
-    };
+    }
 
+    errors.username = validateTextField(username);
     errors.email = validateTextField(email);
     errors.password = validateTextField(password);
 
     setErrors(errors);
 
-    return errors.email.isValid && errors.password.isValid
+    return errors.username.isValid && errors.email.isValid && errors.password.isValid
   }
 
   /**
@@ -58,7 +78,7 @@ export default function LoginForm({login, triggerRedirect}) {
    * @param {string} field
    * @return {{isValid: boolean, message: string}}
    */
-  const validateTextField = field => {
+   const validateTextField = field => {
     if (field.length < 1) {
       return {
         message: `This field cannot be empty.`,
@@ -73,9 +93,30 @@ export default function LoginForm({login, triggerRedirect}) {
     }
   }
 
+
   return (
     <div className={styles.container}>
         <form onSubmit={handleSubmit} className={styles.formContainer}>
+
+          <div className={styles.fieldContainer}>
+            <label htmlFor="username" className={styles.textInputLabel}>
+              Username
+              <p className={styles.errorText}>{errors.username.message}</p>
+            </label>
+            <div className={styles.textInputContainer}>
+              <input type="text"
+                     name="username"
+                     value={username}
+                     className={errors.username.isValid ? styles.textInput : styles.textInputError}
+                     onChange={handleUsernameChange}
+              />
+              {
+                !errors.username.isValid &&
+                <img src={errorIcon} alt="warning-icon" className={styles.errorIcon} />
+              }
+            </div>
+          </div>
+
           <div className={styles.fieldContainer}>
             <label htmlFor="email" className={styles.textInputLabel}>
               Email
@@ -85,8 +126,8 @@ export default function LoginForm({login, triggerRedirect}) {
               <input type="email"
                      name="email"
                      value={email}
-                     onChange={handleEmailChange}
                      className={errors.email.isValid ? styles.textInput : styles.textInputError}
+                     onChange={handleEmailChange}
               />
               {
                 !errors.email.isValid &&
@@ -94,6 +135,7 @@ export default function LoginForm({login, triggerRedirect}) {
               }
             </div>
           </div>
+
           <div className={styles.fieldContainer}>
             <label htmlFor="password" className={styles.textInputLabel}>
               Password
@@ -103,21 +145,22 @@ export default function LoginForm({login, triggerRedirect}) {
               <input type="password"
                      name="password"
                      value={password}
-                     onChange={handlePasswordChange}
                      className={errors.password.isValid ? styles.textInput : styles.textInputError}
+                     onChange={handlePasswordChange}
               />
               {
-                !errors.email.isValid &&
+                !errors.password.isValid &&
                 <img src={errorIcon} alt="warning-icon" className={styles.errorIcon} />
               }
             </div>
           </div>
+
           <input type="submit"
-                 value="Log in"
+                 value="Sign up"
                  className={styles.button}
           />
           <div className={styles.prompt}>
-            Don't have an account? <Link to={"/signup"}>Sign up</Link>
+            Already have an account? <Link to={"/login"}>Log in</Link>
           </div>
         </form>
       </div>

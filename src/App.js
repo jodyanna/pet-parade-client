@@ -7,6 +7,7 @@ import {
 import userContext from "./context/userContext";
 import './App.css';
 import Login from "./components/Login";
+import SignUp from "./components/SignUp";
 
 const initUserState = {
   id: null,
@@ -52,10 +53,11 @@ export default function App() {
       <Router>
       <div className="App">
       <Login></Login>
+      <SignUp></SignUp>
       <Switch>
-        <Route>
-          
-        </Route>
+        <Route path="/login" component={Login}/>
+        <Route path="/login" component={SignUp}/>
+        <Route exact path="/" />
       </Switch>
     </div>
     </Router>
