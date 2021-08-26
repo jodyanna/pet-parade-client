@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import userContext from "./context/userContext";
 import './App.css';
+import Home from "./components/Home";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 
@@ -52,12 +53,10 @@ export default function App() {
     <userContext.Provider value={{user: user, isLoggedIn: isLoggedIn, login: login, logout: logout}}>
       <Router>
       <div className="App">
-      <Login></Login>
-      <SignUp></SignUp>
       <Switch>
         <Route path="/login" component={Login}/>
-        <Route path="/login" component={SignUp}/>
-        <Route exact path="/" />
+        <Route path="/signup" component={SignUp}/>
+        <Route exact path="/" component={Home}/>
       </Switch>
     </div>
     </Router>
