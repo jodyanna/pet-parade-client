@@ -5,12 +5,13 @@
     align-items: center;
     width: 100%;
     height: 50px;
+    background-color: #48477e;
   }
   
   .heading {
     margin: 0 0 0 8px;
     font-size: 32px;
-    color: #000000;
+    color: #ffffff;
   }
   
   .logo {
