@@ -1,0 +1,18 @@
+
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: 25px;
+  margin: 2rem 0;
+  border-bottom: 2px solid #48477e;
+  font-size: 1.2em;
+}
+
+.field {
+  margin: 0 1rem 0 auto;
+}
+
+

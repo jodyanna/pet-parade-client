@@ -13,6 +13,8 @@ export default function Nav() {
     <div className={styles.container}>
 
       <nav className={styles.navBar}>
+        <Link to="/" className={styles.navBarItem}>Home</Link>
+        <Link to="/user" className={styles.navBarItem}>My Profile</Link>
         <Link to="/login" className={styles.navBarItem}>Log in</Link>
         <Link to="/signup" className={styles.navBarItem}>Sign up</Link>
       </nav>
@@ -26,6 +28,8 @@ export default function Nav() {
                 <img src={cancelIcon} alt="x-icon" style={{width: "36px"}}/>
               </button>
             </div>
+            <Link to="/" className={styles.navMenuItem}>Home</Link>
+            <Link to="/user" className={styles.navMenuItem}>My Profile</Link>
             <Link to="/login" className={styles.navMenuItem}>Log in</Link>
             <Link to="/signup" className={styles.navMenuItem}>Sign up</Link>
           </nav>

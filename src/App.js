@@ -6,9 +6,11 @@ import {
 } from "react-router-dom";
 import userContext from "./context/userContext";
 import './App.css';
+import Header from "./components/Header";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
+import User from "./components/User";
 
 const initUserState = {
   id: null,
@@ -53,10 +55,12 @@ export default function App() {
     <userContext.Provider value={{user: user, isLoggedIn: isLoggedIn, login: login, logout: logout}}>
       <Router>
         <div className="App">
+          <Header />
           <Switch>
+            <Route path="/user" component={User} />
             <Route path="/login" component={Login}/>
             <Route path="/signup" component={SignUp}/>
-            <Route exact path="/" component={Home}/>
+            <Route exact path="/" component={Home} />
           </Switch>
         </div>
       </Router>
