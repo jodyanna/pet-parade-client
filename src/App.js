@@ -12,11 +12,11 @@ import SignUp from "./components/SignUp";
 
 const initUserState = {
   id: null,
-  username: "",
-  email: "",
-  city: "",
-  state: "",
-  dateCreated: null,
+  username: "hamsandwich",
+  email: "hamsandwich@email.com",
+  city: "Chicago",
+  state: "Illinois",
+  dateCreated: new Date(),
   dateModified: null
 };
 
@@ -52,14 +52,14 @@ export default function App() {
   return (
     <userContext.Provider value={{user: user, isLoggedIn: isLoggedIn, login: login, logout: logout}}>
       <Router>
-      <div className="App">
-      <Switch>
-        <Route path="/login" component={Login}/>
-        <Route path="/signup" component={SignUp}/>
-        <Route exact path="/" component={Home}/>
-      </Switch>
-    </div>
-    </Router>
+        <div className="App">
+          <Switch>
+            <Route path="/login" component={Login}/>
+            <Route path="/signup" component={SignUp}/>
+            <Route exact path="/" component={Home}/>
+          </Switch>
+        </div>
+      </Router>
     </userContext.Provider>
   );
 }

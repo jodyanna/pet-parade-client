@@ -108,3 +108,11 @@
     right: 8px;
     width: 16px;
   }
+
+  .link {
+    color: #48477e;
+  }
+
+  .link:hover {
+    text-decoration: underline;
+  }

@@ -9,7 +9,6 @@ export default function Login() {
   const triggerRedirect = () => setIsRedirect(true);
 
   return (
-
     <userContext.Consumer>
       {
         ({ login }) => {

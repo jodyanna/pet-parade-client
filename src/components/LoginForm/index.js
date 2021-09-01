@@ -117,7 +117,7 @@ export default function LoginForm({login, triggerRedirect}) {
                  className={styles.button}
           />
           <div className={styles.prompt}>
-            Don't have an account? <Link to={"/signup"}>Sign up</Link>
+            Don't have an account? <Link to={"/signup"} className={styles.link}>Sign up</Link>
           </div>
         </form>
       </div>

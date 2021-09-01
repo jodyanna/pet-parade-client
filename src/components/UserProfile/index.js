@@ -1,0 +1,43 @@
+import React, {useState, useEffect} from "react";
+import styles from "./index.module.css";
+import locationIcon from "./location.png";
+import blankProfile from "./blank-profile.png";
+import UserProfileForm from "../UserProfileForm";
+
+export default function UserProfile({user}) {
+  const [isFormVisible, setIsFormVisible] = useState(false);
+
+  const handleClick = () => setIsFormVisible(!isFormVisible)
+
+  useEffect(() => {
+
+  }, []);
+
+  return (
+    <div className={styles.container}>
+      
+      <img src={blankProfile} alt="blank-profile.png" className={styles.profileImage} />
+
+      <span className={styles.username}>{user.username}</span>
+
+      {
+        isFormVisible ? 
+          <UserProfileForm handleClick={handleClick} /> 
+          :
+          <button onClick={handleClick} className={styles.button}>
+            Edit profile
+          </button>
+      }
+
+      <div className={styles.profileRow}>
+        <img src={locationIcon} alt="location-icon.png" className={styles.icon} />
+        <span>{user.city}, {user.state}</span>
+      </div>
+
+      <div className={styles.profileRow}>
+        <span>Joined: {user.dateCreated.toISOString().slice(0, 10)}</span>
+      </div>
+
+    </div>
+  )
+}

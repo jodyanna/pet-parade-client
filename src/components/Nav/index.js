@@ -13,29 +13,28 @@ export default function Nav() {
     <div className={styles.container}>
 
       <nav className={styles.navBar}>
-        <Link to="/login" className={styles.navBarItem}>Login</Link>
-        <Link to="/signup" className={styles.navBarItem}>Signup</Link>
+        <Link to="/login" className={styles.navBarItem}>Log in</Link>
+        <Link to="/signup" className={styles.navBarItem}>Sign up</Link>
       </nav>
 
-      <nav className={styles.navMobile}>
+      <div className={styles.navMobile}>
         {
           isMenuVisible ?
-          <div className={styles.navMenu}>
+          <nav className={styles.navMenu}>
             <div className={styles.menuCancelButtonContainer}>
               <button onClick={handleClick} className={styles.navButton}>
                 <img src={cancelIcon} alt="x-icon" style={{width: "36px"}}/>
               </button>
             </div>
-            <Link to="/login" className={styles.navMenuItem}>Login</Link>
-            <Link to="/signup" className={styles.navMenuItem}>Signup</Link>
-          </div>
+            <Link to="/login" className={styles.navMenuItem}>Log in</Link>
+            <Link to="/signup" className={styles.navMenuItem}>Sign up</Link>
+          </nav>
           :
           <button onClick={handleClick} className={styles.navButton}>
             <img src={stackIcon} alt="stack-icon" style={{width: "36px"}}/>
           </button>
         }
-
-      </nav>
+      </div>
 
     </div>
   )
