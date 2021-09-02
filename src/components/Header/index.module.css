@@ -13,6 +13,10 @@
     font-size: 32px;
     color: #ffffff;
   }
+
+  .link {
+    text-decoration: none;
+  }
   
   .logo {
     height: 32px;
