@@ -1,12 +1,12 @@
 import React from "react";
-import Header from "../Header";
 import styles from "./index.module.css";
+import Pet from "../Pet";
 
 export default function Home() {
 
   return (
     <div className={styles.container}>
-
+      <Pet />
     </div>
   )
 }

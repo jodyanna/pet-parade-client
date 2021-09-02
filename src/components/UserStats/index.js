@@ -3,7 +3,7 @@ import styles from "./index.module.css";
 
 export default function UserStats() {
   return (
-    <div>
+    <div className={styles.container}>
       <div className={styles.row}>
         Pets<span className={styles.field}>3</span>
       </div>
