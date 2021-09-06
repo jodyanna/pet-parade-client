@@ -2,25 +2,26 @@ import React from "react";
 import styles from "./index.module.css";
 import blankProfile from "./blank-profile.png";
 
-export default function Pet() {
+export default function Pet({pet}) {
 
   return (
     <div className={styles.container}>
       <img src={blankProfile} alt="blank-profile.png" className={styles.profileImage} />
       
       <div className={styles.info}>
-        <h2 className={styles.name}>Pet's Name</h2>
+        <h2 className={styles.name}>{pet.name}</h2>
         
         <span className={styles.bio}>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam nesciunt consectetur numquam eos, 
-          deleniti vel asperiores.
+          {pet.bio}
         </span>
         
         <div className={styles.statContainer}>
-          <span className={styles.stat}>🎂 4/29 </span>
-          <span className={styles.stat}>❤️ 255</span>
-          <span className={styles.stat}>⚔️ 547</span>
-          <span className={styles.stat}>🏆 389</span>
+          {
+            pet.birthday === null ? "" : <span className={styles.stat}>🎂 {pet.birthday}</span>
+          }
+          <span className={styles.stat}>❤️ {pet.likes}</span>
+          <span className={styles.stat}>⚔️ {pet.matches}</span>
+          <span className={styles.stat}>🏆 {pet.wins}</span>
         </div>
       </div>
 

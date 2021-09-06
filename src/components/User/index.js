@@ -3,7 +3,7 @@ import styles from "./index.module.css";
 import userContext from "../../context/userContext";
 import UserProfile from "../UserProfile";
 import UserStats from "../UserStats";
-import Pet from "../Pet";
+import Pets from "../Pets";
 
 export default function User() {
   const [isStatsVisible, setIsStatsVisible] = useState(true);
@@ -38,8 +38,7 @@ export default function User() {
 
                 <div className={styles.display}>
                   {isStatsVisible && <UserStats />}
-                  {isPetsVisible && <Pet />}
-
+                  {isPetsVisible && <Pets />}
                 </div>
               </div>
             </div>
