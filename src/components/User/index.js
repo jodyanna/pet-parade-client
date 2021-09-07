@@ -1,11 +1,10 @@
 import React, {useState} from "react";
 import styles from "./index.module.css";
-import userContext from "../../context/userContext";
 import UserProfile from "../UserProfile";
 import UserStats from "../UserStats";
 import Pets from "../Pets";
 
-export default function User() {
+export default function User({user, login}) {
   const [isStatsVisible, setIsStatsVisible] = useState(true);
   const [isPetsVisible, setIsPetsVisible] = useState(false)
 
@@ -19,32 +18,24 @@ export default function User() {
   }
 
   return (
-    <userContext.Consumer>
-      {
-        ({ user, login }) => {
-          return (
-            <div className={styles.container}>
-              <UserProfile user={user} />
+    <div className={styles.container}>
+      <UserProfile user={user} login={login} />
 
-              <div className={styles.displayContainer}>
-                <nav className={styles.userNav}>
-                  <button onClick={handleStatsClick} className={isStatsVisible ? styles.userNavItemSelected : styles.userNavItem}>
-                    My Stats
-                  </button>
-                  <button onClick={handlePetsClick} className={isPetsVisible ? styles.userNavItemSelected : styles.userNavItem}>
-                    My Pets
-                  </button>
-                </nav>
+      <div className={styles.displayContainer}>
+        <nav className={styles.userNav}>
+          <button onClick={handleStatsClick} className={isStatsVisible ? styles.userNavItemSelected : styles.userNavItem}>
+            My Stats
+          </button>
+          <button onClick={handlePetsClick} className={isPetsVisible ? styles.userNavItemSelected : styles.userNavItem}>
+            My Pets
+          </button>
+        </nav>
 
-                <div className={styles.display}>
-                  {isStatsVisible && <UserStats />}
-                  {isPetsVisible && <Pets />}
-                </div>
-              </div>
-            </div>
-          )
-        }
-      }
-    </userContext.Consumer>
+        <div className={styles.display}>
+          {isStatsVisible && <UserStats />}
+          {isPetsVisible && <Pets />}
+        </div>
+      </div>
+    </div>
   )
 }

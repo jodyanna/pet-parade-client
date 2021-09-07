@@ -5,10 +5,10 @@ import Pet from "../Pet";
 const pet1 = {
   name: "Gus",
   bio: "Itchy dog that loves scratching! He does it a little too much though.",
-  birthday: "",
+  birthday: null,
   likes: 255,
-  matches: 547,
-  wins: 389
+  ratingAvg: 8.3,
+  ratingsCount: 389
 }
 
 const pet2 = {
@@ -16,11 +16,11 @@ const pet2 = {
   bio: "Old dog that can't see very well. Loves barking at nothing in the early hours of the morning.",
   birthday: "4/29",
   likes: 9,
-  matches: 15,
-  wins: 2
+  ratingAvg: 6.4,
+  ratingsCount: 2
 }
 
-export default function Pets() {
+export default function Pets({user}) {
   const [pets, setPets] = useState([]);
 
   useEffect(() => {

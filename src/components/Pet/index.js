@@ -20,8 +20,8 @@ export default function Pet({pet}) {
             pet.birthday === null ? "" : <span className={styles.stat}>🎂 {pet.birthday}</span>
           }
           <span className={styles.stat}>❤️ {pet.likes}</span>
-          <span className={styles.stat}>⚔️ {pet.matches}</span>
-          <span className={styles.stat}>🏆 {pet.wins}</span>
+          <span className={styles.stat}>📈 {pet.ratingAvg}</span>
+          <span className={styles.stat}>🐾 {pet.ratingsCount}</span>
         </div>
       </div>
 

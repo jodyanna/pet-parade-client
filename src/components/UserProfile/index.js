@@ -4,7 +4,7 @@ import locationIcon from "./location.png";
 import blankProfile from "./blank-profile.png";
 import UserProfileForm from "../UserProfileForm";
 
-export default function UserProfile({user}) {
+export default function UserProfile({user, login}) {
   const [isFormVisible, setIsFormVisible] = useState(false);
 
   const handleClick = () => setIsFormVisible(!isFormVisible)
@@ -22,7 +22,7 @@ export default function UserProfile({user}) {
 
       {
         isFormVisible ? 
-          <UserProfileForm handleClick={handleClick} /> 
+          <UserProfileForm login={login} handleClick={handleClick} /> 
           :
           <button onClick={handleClick} className={styles.button}>
             Edit profile

@@ -11,6 +11,7 @@ import Home from "./components/Home";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import User from "./components/User";
+import Leaderboard from "./components/Leaderboard";
 
 const initUserState = {
   id: null,
@@ -57,10 +58,25 @@ export default function App() {
         <div className="App">
           <Header />
           <Switch>
-            <Route path="/user" component={User} />
-            <Route path="/login" component={Login}/>
-            <Route path="/signup" component={SignUp}/>
-            <Route exact path="/" component={Home} />
+            <Route path="/user">
+              <User user={user} login={login} />
+            </Route>
+
+            <Route path="/leaderboard">
+              <Leaderboard />
+            </Route>
+
+            <Route path="/login">
+              <Login login={login} />
+            </Route>
+
+            <Route path="/signup">
+              <SignUp login={login} />
+            </Route>
+
+            <Route exact path="/">
+              <Home />
+            </Route>
           </Switch>
         </div>
       </Router>
