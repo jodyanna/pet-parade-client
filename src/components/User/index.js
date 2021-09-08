@@ -32,8 +32,8 @@ export default function User({user, login}) {
         </nav>
 
         <div className={styles.display}>
-          {isStatsVisible && <UserStats />}
-          {isPetsVisible && <Pets />}
+          {isStatsVisible && <UserStats user={user} />}
+          {isPetsVisible && <Pets user={user} />}
         </div>
       </div>
     </div>

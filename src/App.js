@@ -14,7 +14,7 @@ import User from "./components/User";
 import Leaderboard from "./components/Leaderboard";
 
 const initUserState = {
-  id: null,
+  id: 1,
   username: "hamsandwich",
   email: "hamsandwich@email.com",
   city: "Chicago",
