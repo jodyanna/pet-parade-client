@@ -14,6 +14,7 @@ export default function Nav() {
 
       <nav className={styles.navBar}>
         <Link to="/" className={styles.navBarItem}>Home</Link>
+        <Link to="/about" className={styles.navBarItem}>About</Link>
         <Link to="/leaderboard" className={styles.navBarItem}>Leaderboard</Link>
         <Link to="/user" className={styles.navBarItem}>My Profile</Link>
         <Link to="/login" className={styles.navBarItem}>Log in</Link>
@@ -30,6 +31,7 @@ export default function Nav() {
               </button>
             </div>
             <Link to="/" className={styles.navMenuItem}>Home</Link>
+            <Link to="/about" className={styles.navMenuItem}>About</Link>
             <Link to="/leaderboard" className={styles.navMenuItem}>Leaderboard</Link>
             <Link to="/user" className={styles.navMenuItem}>My Profile</Link>
             <Link to="/login" className={styles.navMenuItem}>Log in</Link>

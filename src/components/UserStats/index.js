@@ -17,11 +17,11 @@ export default function UserStats() {
       </div>
 
       <div className={styles.row}>
-        Votes Given<span className={styles.field}>45</span>
+        Ratings Given<span className={styles.field}>45</span>
       </div>
 
       <div className={styles.row}>
-        Votes Recieved<span className={styles.field}>224</span>
+        Ratings Recieved<span className={styles.field}>224</span>
       </div>
 
     </div>

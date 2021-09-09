@@ -9,7 +9,7 @@ const pet1 = {
   bio: "Itchy dog that loves scratching! He does it a little too much though.",
   birthday: null,
   likes: 255,
-  ratingAvg: 8.3,
+  ratingAvg: 4.1,
   ratingsCount: 389
 }
 
@@ -20,7 +20,7 @@ const pet2 = {
   bio: "Old dog that can't see very well. Loves barking at nothing in the early hours of the morning.",
   birthday: "4/29",
   likes: 9,
-  ratingAvg: 6.4,
+  ratingAvg: 2.3,
   ratingsCount: 2
 }
 

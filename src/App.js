@@ -12,6 +12,7 @@ import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import User from "./components/User";
 import Leaderboard from "./components/Leaderboard";
+import About from "./components/About";
 
 const initUserState = {
   id: 1,
@@ -58,6 +59,10 @@ export default function App() {
         <div className="App">
           <Header />
           <Switch>
+            <Route path="/about">
+              <About />
+            </Route>
+
             <Route path="/user">
               <User user={user} login={login} />
             </Route>

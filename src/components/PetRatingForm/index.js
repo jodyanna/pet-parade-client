@@ -17,7 +17,7 @@ export default function PetRatingForm({user, pet, petImage, handleClick}) {
       <form onSubmit={handleSubmit} className={styles.formContainer}>
         <div className={styles.buttonRow}>
           <button onClick={handleClick} className={styles.cancelButton}>
-            <img src={cancelIcon} alt="x-icon" style={{width: "36px"}}/>
+            <img src={cancelIcon} alt="x-icon" style={{width: "24px"}}/>
           </button>
         </div>
 
@@ -25,7 +25,7 @@ export default function PetRatingForm({user, pet, petImage, handleClick}) {
           <img src={petImage} className={styles.image} alt="pet" />
 
           <div className={styles.info}>
-            <h1 className={styles.name}>{pet.name}</h1>
+            <h2 className={styles.name}>{pet.name}</h2>
             
             <span className={styles.bio}>
               {pet.bio}
