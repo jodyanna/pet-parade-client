@@ -18,11 +18,27 @@
 .navBarItem {
   color: #ffffff;
   text-decoration: none;
-  margin: 0 1rem 0 1rem;
+  margin: 0 1rem;
 }
 
 .navBarItem:hover {
   text-decoration: underline;
+}
+
+.logoutButton {
+  color: #ffffff;
+  text-decoration: none;
+  margin: 0 1rem;
+  padding: 0;
+  border: none;
+  background-color: inherit;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.logoutButton:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .navMobile {

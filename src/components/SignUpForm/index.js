@@ -34,23 +34,21 @@ export default function SignUpForm({login, triggerRedirect}) {
       .then(isValid => {
         if (isValid) {
           let data = {
-            "userName": username,
+            "username": username,
             "password": password,
-            "userEmail": email,
+            "email": email,
           }
 
-          fetch("", {
+          fetch("http://localhost:8080/users", {
             method: "POST",
-            body: JSON.stringify(data)
+            body: JSON.stringify(data),
+            headers: {
+              "content-type": "application/json"
+            }
           }).then(res => res.json())
             .then(res => {
-              if (res.result) {
-                data.userId = res.id;
-                delete data.password;
-
-                login(data);
-                triggerRedirect();
-              }
+              login(res);
+              triggerRedirect();
             })
             .catch(error => console.log(error));
         }

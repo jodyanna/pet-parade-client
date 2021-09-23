@@ -14,29 +14,16 @@ import User from "./components/User";
 import Leaderboard from "./components/Leaderboard";
 import About from "./components/About";
 
-const initUserState = {
-  id: 1,
-  username: "hamsandwich",
-  email: "hamsandwich@email.com",
-  city: "Chicago",
-  state: "Illinois",
-  dateCreated: new Date(),
-  dateModified: null
-};
-
 export default function App() {
-  const [user, setUser] = useState(initUserState);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
 
   const login = user => {
     setUser(user);
-    setIsLoggedIn(true);
     localStorage.setItem("pet-parade-user-info", JSON.stringify(user));
   }
 
   const logout = () => {
-    setUser(initUserState);
-    setIsLoggedIn(false);
+    setUser(null);
     localStorage.removeItem("pet-parade-user-info");
   }
 
@@ -47,25 +34,27 @@ export default function App() {
 
         if(parsedData !== null) {
           setUser(parsedData);
-          setIsLoggedIn(true);
         }
       }
     }
   }, []);
 
   return (
-    <userContext.Provider value={{user: user, isLoggedIn: isLoggedIn, login: login, logout: logout}}>
+    <userContext.Provider value={{user: user, login: login, logout: logout}}>
       <Router>
         <div className="App">
-          <Header />
+          <Header user={user} logout={logout} />
           <Switch>
             <Route path="/about">
               <About />
             </Route>
 
-            <Route path="/user">
-              <User user={user} login={login} />
-            </Route>
+            {
+              user !== null && 
+              <Route path="/user">
+                <User user={user} login={login} />
+              </Route>
+            }
 
             <Route path="/leaderboard">
               <Leaderboard />

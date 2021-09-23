@@ -26,11 +26,19 @@ export default function LoginForm({login, triggerRedirect}) {
     validateForm()
       .then(isValid => {
         if (isValid) {
-          fetch("", {
-              method: 'GET'
+          fetch(`http://localhost:8080/users/login`, {
+              method: "POST",
+              body: JSON.stringify({
+                "email": email,
+                "password": password
+              }),
+              headers: {
+                "content-type": "application/json"
+              }
             })
             .then(res => res.json())
             .then(res => {
+              console.log(res)
               login(res);
               triggerRedirect();
             })

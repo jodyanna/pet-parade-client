@@ -3,7 +3,7 @@ import Faq from "../Faq";
 import styles from "./index.module.css";
 
 export default function About() {
-  const [isFaqVisible, setIsFaqVisible] = useState(false);
+  const [isFaqVisible, setIsFaqVisible] = useState(true);
   const [isContactVisible, setIsContactVisible] = useState(false);
 
   const handleFaqClick = () => {

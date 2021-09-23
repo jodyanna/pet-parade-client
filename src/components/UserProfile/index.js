@@ -35,7 +35,7 @@ export default function UserProfile({user, login}) {
       </div>
 
       <div className={styles.profileRow}>
-        <span>Joined: {user.dateCreated.toISOString().slice(0, 10)}</span>
+        <span>Joined: {user.dateCreated}</span>
       </div>
 
     </div>
