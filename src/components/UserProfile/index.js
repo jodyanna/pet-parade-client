@@ -29,10 +29,13 @@ export default function UserProfile({user, login}) {
           </button>
       }
 
-      <div className={styles.profileRow}>
-        <img src={locationIcon} alt="location-icon.png" className={styles.icon} />
-        <span>{user.city}, {user.state}</span>
-      </div>
+      {
+        user.state !== null && user.city !== null &&
+        <div className={styles.profileRow}>
+          <img src={locationIcon} alt="location-icon.png" className={styles.icon} />
+          <span>{user.city}, {user.state}</span>
+        </div> 
+      }
 
       <div className={styles.profileRow}>
         <span>Joined: {user.dateCreated}</span>

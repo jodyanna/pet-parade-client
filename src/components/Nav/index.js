@@ -1,22 +1,21 @@
 import React, {useState} from "react";
-import {Link, Redirect} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import styles from "./index.module.css";
 import stackIcon from "./stack-icon.png";
 import cancelIcon from "./x-icon.png";
 
 export default function Nav({ user, logout }) {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
-  const [isRedirect, setIsRedirect] = useState(false);
+  let history = useHistory();
 
   const handleClick = () => setIsMenuVisible(!isMenuVisible);
   const handleLogoutClick = () => {
     logout();
-    setIsRedirect(true);
+    history.push("/")
   }
   
   return(
     <div className={styles.container}>
-      {isRedirect && <Redirect to="/"/>}
 
       <nav className={styles.navBar}>
         <Link to="/" className={styles.navBarItem}>Home</Link>

@@ -1,39 +1,57 @@
 import React, {useState, useEffect} from "react";
 import styles from "./index.module.css";
 import Pet from "../Pet";
-
-const pet1 = {
-  id: 1,
-  userId: 1,
-  name: "Gus",
-  bio: "Itchy dog that loves scratching! He does it a little too much though.",
-  birthday: null,
-  likes: 255,
-  ratingAvg: 4.1,
-  ratingsCount: 389
-}
-
-const pet2 = {
-  id: 2,
-  userId: 2,
-  name: "Tag",
-  bio: "Old dog that can't see very well. Loves barking at nothing in the early hours of the morning.",
-  birthday: "4/29",
-  likes: 9,
-  ratingAvg: 2.3,
-  ratingsCount: 2
-}
+import PetForm from "../PetForm";
 
 export default function Pets({user}) {
   const [pets, setPets] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isFormVisible, setIsFormVisible] = useState(false);
+
+  const handleClick = () => setIsFormVisible(!isFormVisible)
 
   useEffect(() => {
-    setPets([pet1, pet2]);
+    fetchAllPets(user.pets)
+      .then(res => {
+        setPets(res);
+        setIsLoading(false);
+      });
   }, []);
+
+  const fetchAllPets = async ids => {
+    const allPets = [];
+
+    for (let i = 0; i < ids.length; i++) {
+      const response = await fetch("http://localhost:8080/pets/" + ids[i], {
+        method: "GET",
+        headers: {
+          "content-type": "application/json"
+        }
+      }).catch(error => console.log(error));
+
+      const data = await response.json();
+
+      allPets.push(data);
+    }
+
+    return Promise.all(allPets);
+  }
 
   return (
     <div className={styles.container}>
-      {pets.map(pet => <Pet user={user} pet={pet} />)}
+      {
+        !isLoading && pets.map(pet => <Pet key={pet.id} user={user} pet={pet} />)
+      }
+
+      <div className={styles.buttonContainer}>
+        <button className={styles.button} onClick={handleClick}>
+          Create new pet
+        </button>
+      </div>
+
+      {
+        isFormVisible && <PetForm user={user} handleClick={handleClick} />
+      }
     </div>
   )
 }
