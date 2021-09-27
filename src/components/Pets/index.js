@@ -14,11 +14,13 @@ export default function Pets({user, login}) {
   const handleRefresh = () => setRefresh(!refresh)
 
   useEffect(() => {
-    fetchAllPets(user.pets)
-      .then(res => {
-        setPets(res);
-        setIsLoading(false);
-      });
+    if (user.pets !== null) {
+      fetchAllPets(user.pets)
+        .then(res => {
+          setPets(res);
+          setIsLoading(false);
+        });
+    }
   }, [user.pets, refresh]);
 
   const fetchAllPets = async ids => {

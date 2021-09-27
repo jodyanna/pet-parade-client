@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import styles from "./index.module.css";
 import errorIcon from "./error-icon.png";
 
-export default function LoginForm({login, triggerRedirect}) {
+export default function LoginForm({login, handleError, triggerRedirect}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({
@@ -38,8 +38,13 @@ export default function LoginForm({login, triggerRedirect}) {
             })
             .then(res => res.json())
             .then(res => {
-              login(res);
-              triggerRedirect();
+              if (res.status === 404) {
+                handleError(true);
+              }
+              else {
+                login(res);
+                triggerRedirect();
+              }
             })
             .catch(err => console.log(err));
         }

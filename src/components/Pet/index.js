@@ -19,7 +19,7 @@ export default function Pet({user, pet}) {
       <div className={styles.imageContainer}>
         <img src={blankProfile} alt="blank-profile.png" className={styles.profileImage} />
         {
-          user.id !== pet.userId &&
+          user.id !== pet.owner &&
             <button onClick={handleLikeClick} className={styles.buttonLike}>
               <img src={heartEmpty} className={styles.icon} alt="like-heart.png" />
             </button>
@@ -34,7 +34,7 @@ export default function Pet({user, pet}) {
         <header className={styles.header}>
           <h2 className={styles.name}>{pet.name}</h2>
           {
-            user.id !== pet.userId && <button onClick={handleRateClick} className={styles.buttonRate}>⭐</button>
+            user.id !== pet.owner && <button onClick={handleRateClick} className={styles.buttonRate}>⭐</button>
           }
         </header>
         
