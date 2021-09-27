@@ -5,8 +5,8 @@ import UserStats from "../UserStats";
 import Pets from "../Pets";
 
 export default function User({user, login}) {
-  const [isStatsVisible, setIsStatsVisible] = useState(true);
-  const [isPetsVisible, setIsPetsVisible] = useState(false)
+  const [isStatsVisible, setIsStatsVisible] = useState(false);
+  const [isPetsVisible, setIsPetsVisible] = useState(true);
 
   const handleStatsClick = () => {
     setIsPetsVisible(false);
@@ -23,17 +23,17 @@ export default function User({user, login}) {
 
       <div className={styles.displayContainer}>
         <nav className={styles.userNav}>
-          <button onClick={handleStatsClick} className={isStatsVisible ? styles.userNavItemSelected : styles.userNavItem}>
-            My Stats
-          </button>
           <button onClick={handlePetsClick} className={isPetsVisible ? styles.userNavItemSelected : styles.userNavItem}>
             My Pets
+          </button>
+          <button onClick={handleStatsClick} className={isStatsVisible ? styles.userNavItemSelected : styles.userNavItem}>
+            My Stats
           </button>
         </nav>
 
         <div className={styles.display}>
+          {isPetsVisible && <Pets user={user} login={login} />}
           {isStatsVisible && <UserStats user={user} />}
-          {isPetsVisible && <Pets user={user} />}
         </div>
       </div>
     </div>

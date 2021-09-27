@@ -38,7 +38,6 @@ export default function LoginForm({login, triggerRedirect}) {
             })
             .then(res => res.json())
             .then(res => {
-              console.log(res)
               login(res);
               triggerRedirect();
             })

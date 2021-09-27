@@ -3,12 +3,15 @@ import styles from "./index.module.css";
 import Pet from "../Pet";
 import PetForm from "../PetForm";
 
-export default function Pets({user}) {
+export default function Pets({user, login}) {
   const [pets, setPets] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isFormVisible, setIsFormVisible] = useState(false);
+  const [refresh, setRefresh] = useState(false);
 
   const handleClick = () => setIsFormVisible(!isFormVisible)
+
+  const handleRefresh = () => setRefresh(!refresh)
 
   useEffect(() => {
     fetchAllPets(user.pets)
@@ -16,7 +19,7 @@ export default function Pets({user}) {
         setPets(res);
         setIsLoading(false);
       });
-  }, []);
+  }, [user.pets, refresh]);
 
   const fetchAllPets = async ids => {
     const allPets = [];
@@ -50,7 +53,11 @@ export default function Pets({user}) {
       </div>
 
       {
-        isFormVisible && <PetForm user={user} handleClick={handleClick} />
+        isFormVisible && <PetForm user={user}
+                                  login={login}
+                                  handleClick={handleClick}
+                                  handleRefresh={handleRefresh}
+        />
       }
     </div>
   )

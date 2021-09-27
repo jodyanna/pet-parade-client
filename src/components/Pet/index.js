@@ -3,7 +3,6 @@ import PetRatingForm from "../PetRatingForm";
 import styles from "./index.module.css";
 import blankProfile from "./blank-profile.png";
 import heartEmpty from "./heart-empty.png";
-import heartFilled from "./heart-filled.png";
 
 export default function Pet({user, pet}) {
   const [isRatingFormVisible, setIsRatingFormVisible] = useState(false);
