@@ -3,7 +3,7 @@ import styles from "./index.module.css";
 import errorIcon from "./error-icon.png";
 
 
-export default function UserProfileForm({login, handleClick}) {
+export default function UserProfileForm({user, login, handleClick}) {
   const [username, setUsername] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
@@ -24,20 +24,20 @@ export default function UserProfileForm({login, handleClick}) {
     validateForm()
       .then(isValid => {
         if (isValid) {
-          let data = {
-            "userName": username,
-            "city": city,
-            "state": state,
-          }
+          user.username = username.length > 0 ? username : null;
+          user.city = city.length > 0 ? city : null;
+          user.state = state.length > 0 ? state : null;
 
-          fetch("", {
-            method: "POST",
-            body: JSON.stringify(data)
+          fetch("http://localhost:8080/users", {
+            method: "PUT",
+            body: JSON.stringify(user),
+            headers: {
+              "content-type": "application/json"
+            }
           }).then(res => res.json())
             .then(res => {
-              if (res.result) {
-                login(data);
-              }
+              login(res);
+              handleClick();
             })
             .catch(error => console.log(error));
         }

@@ -22,7 +22,7 @@ export default function UserProfile({user, login}) {
 
       {
         isFormVisible ? 
-          <UserProfileForm login={login} handleClick={handleClick} /> 
+          <UserProfileForm user={user} login={login} handleClick={handleClick} />
           :
           <button onClick={handleClick} className={styles.button}>
             Edit profile
