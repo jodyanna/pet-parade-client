@@ -57,7 +57,7 @@ export default function App() {
             }
 
             <Route path="/leaderboard">
-              <Leaderboard />
+              <Leaderboard user={user} />
             </Route>
 
             <Route path="/login">

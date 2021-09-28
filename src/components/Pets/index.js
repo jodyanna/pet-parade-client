@@ -48,7 +48,7 @@ export default function Pets({user, login}) {
         !isLoading && pets.map(pet => <Pet key={pet.id} user={user} pet={pet} />)
       }
 
-      <div className={styles.buttonContainer}>
+      <div>
         <button className={styles.button} onClick={handleClick}>
           Create new pet
         </button>
