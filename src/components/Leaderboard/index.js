@@ -65,7 +65,13 @@ export default function Leaderboard({user}) {
           results.length < 1 ?
             <p className={styles.noResults}>No results</p>
             :
-            results.map(pet => <Pet key={pet.id} pet={pet} user={user} />)
+            results.map(pet => {
+              if (!user.pets.includes(pet.id)) {
+                return <Pet key={pet.id} pet={pet} user={user}/>;
+              } else {
+                return null;
+              }
+            })
         }
       </div>
       
