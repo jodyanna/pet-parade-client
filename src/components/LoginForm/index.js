@@ -38,15 +38,18 @@ export default function LoginForm({login, handleError, triggerRedirect}) {
             })
             .then(res => res.json())
             .then(res => {
-              if (res.status === 404) {
-                handleError(true);
+              if (res.status === 404 || res.status === 403) {
+                handleError({
+                  isError: true,
+                  message: "Login failed. Check email and/or password."
+                });
               }
               else {
                 login(res);
                 triggerRedirect();
               }
             })
-            .catch(err => console.log(err));
+            .catch(() => handleError({isError: true, message: "Incorrect password."}));
         }
       })
   }

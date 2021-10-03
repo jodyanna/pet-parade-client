@@ -5,17 +5,20 @@ import styles from "./index.module.css";
 
 export default function Login({login}) {
   const [isRedirect, setIsRedirect] = useState(false);
-  const [isError, setIsError] = useState(false);
+  const [error, setError] = useState({
+    isError: false,
+    message: ""
+  });
 
   const triggerRedirect = () => setIsRedirect(true);
-  const handleError = message => setIsError(message);
+  const handleError = error => setError(error);
 
   return (
     <div className={styles.container}>
       {isRedirect ? <Redirect to="/" /> : null}
       <LoginForm login={login} handleError={handleError} triggerRedirect={triggerRedirect} />
       {
-        isError && <p className={styles.errorText}>Login failed. Please check username and/or password.</p>
+        error.isError && <p className={styles.errorText}>{error.message}</p>
       }
     </div>
   )
