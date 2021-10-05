@@ -33,7 +33,7 @@ export default function User({user, login}) {
 
         <div className={styles.display}>
           {isPetsVisible && <Pets user={user} login={login} />}
-          {isStatsVisible && <UserStats user={user} />}
+          {isStatsVisible && <UserStats stats={user.stats} />}
         </div>
       </div>
     </div>

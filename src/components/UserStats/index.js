@@ -1,27 +1,27 @@
 import React from "react";
 import styles from "./index.module.css";
 
-export default function UserStats() {
+export default function UserStats({stats}) {
   return (
     <div className={styles.container}>
       <div className={styles.row}>
-        Pets<span className={styles.field}>3</span>
+        Pets<span className={styles.field}>{stats.petCount}</span>
       </div>
 
       <div className={styles.row}>
-        Pet Likes Recieved<span className={styles.field}>122</span>
+        Pet Likes Received<span className={styles.field}>{stats.petLikesCount}</span>
       </div>
 
       <div className={styles.row}>
-        Pet Likes Given<span className={styles.field}>34</span>
+        Pet Likes Given<span className={styles.field}>{stats.likesGivenCount}</span>
       </div>
 
       <div className={styles.row}>
-        Ratings Given<span className={styles.field}>45</span>
+        Ratings Given<span className={styles.field}>{stats.ratingsGivenCount}</span>
       </div>
 
       <div className={styles.row}>
-        Ratings Recieved<span className={styles.field}>224</span>
+        Ratings Recieved<span className={styles.field}>{stats.petRatingsCount}</span>
       </div>
 
     </div>

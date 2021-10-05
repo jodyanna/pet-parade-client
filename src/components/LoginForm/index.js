@@ -50,23 +50,25 @@ export default function LoginForm({login, handleError, triggerRedirect}) {
             })
             .catch(() => handleError({isError: true, message: "Incorrect password."}));
 
-          fetch("http://localhost:8080/users/login", {
-            method: "POST",
-            body: JSON.stringify({
-              "email": email,
-              "password": password
-            }),
-            headers: {
-              "content-type": "application/json",
-              "authorization": "Bearer " + token.jwt
-            }
-          }).then(res => res.json())
-            .then(res => {
-              res.token = token;
-              login(res);
-              triggerRedirect();
-            })
-            .catch(error => console.log(error))
+          if (token !== undefined) {
+            fetch("http://localhost:8080/users/login", {
+              method: "POST",
+              body: JSON.stringify({
+                "email": email,
+                "password": password
+              }),
+              headers: {
+                "content-type": "application/json",
+                "authorization": "Bearer " + token.jwt
+              }
+            }).then(res => res.json())
+              .then(res => {
+                res.token = token;
+                login(res);
+                triggerRedirect();
+              })
+              .catch(error => console.log(error))
+          }
         }
       })
   }
