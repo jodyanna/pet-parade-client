@@ -19,13 +19,13 @@ export default function Pet({user, pet}) {
       <div className={styles.imageContainer}>
         <img src={blankProfile} alt="blank-profile.png" className={styles.profileImage} />
         {
-          user.id !== pet.owner &&
+          user !== null &&
             <button onClick={handleLikeClick} className={styles.buttonLike}>
               <img src={heartEmpty} className={styles.icon} alt="like-heart.png" />
             </button>
         }
         {
-          isRatingFormVisible && 
+          isRatingFormVisible &&
             <PetRatingForm user={user} pet={pet} petImage={blankProfile} handleClick={handleRateClick} />
         }
       </div>
@@ -34,7 +34,8 @@ export default function Pet({user, pet}) {
         <header className={styles.header}>
           <h2 className={styles.name}>{pet.name}</h2>
           {
-            user.id !== pet.owner && <button onClick={handleRateClick} className={styles.buttonRate}>⭐</button>
+            user !== null &&
+              <button onClick={handleRateClick} className={styles.buttonRate}>⭐</button>
           }
         </header>
         
