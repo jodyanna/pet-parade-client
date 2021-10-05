@@ -24,12 +24,12 @@ export default function LoginForm({login, handleError, triggerRedirect}) {
     e.preventDefault();
 
     validateForm()
-      .then(isValid => {
+      .then(async isValid => {
         if (isValid) {
-          fetch(`http://localhost:8080/users/login`, {
+          const token = await fetch(`http://localhost:8080/auth`, {
               method: "POST",
               body: JSON.stringify({
-                "email": email,
+                "username": email,
                 "password": password
               }),
               headers: {
@@ -45,11 +45,28 @@ export default function LoginForm({login, handleError, triggerRedirect}) {
                 });
               }
               else {
-                login(res);
-                triggerRedirect();
+                return res;
               }
             })
             .catch(() => handleError({isError: true, message: "Incorrect password."}));
+
+          fetch("http://localhost:8080/users/login", {
+            method: "POST",
+            body: JSON.stringify({
+              "email": email,
+              "password": password
+            }),
+            headers: {
+              "content-type": "application/json",
+              "authorization": "Bearer " + token.jwt
+            }
+          }).then(res => res.json())
+            .then(res => {
+              res.token = token;
+              login(res);
+              triggerRedirect();
+            })
+            .catch(error => console.log(error))
         }
       })
   }

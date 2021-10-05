@@ -30,7 +30,8 @@ export default function Pets({user, login}) {
       const response = await fetch("http://localhost:8080/pets/" + ids[i], {
         method: "GET",
         headers: {
-          "content-type": "application/json"
+          "content-type": "application/json",
+          "authentication": "Bearer " + user.token.jwt
         }
       }).catch(error => console.log(error));
 

@@ -32,10 +32,12 @@ export default function UserProfileForm({user, login, handleClick}) {
             method: "PUT",
             body: JSON.stringify(user),
             headers: {
-              "content-type": "application/json"
+              "content-type": "application/json",
+              "authorization": "Bearer " + user.token.jwt
             }
           }).then(res => res.json())
             .then(res => {
+              res.token = user.token
               login(res);
               handleClick();
             })

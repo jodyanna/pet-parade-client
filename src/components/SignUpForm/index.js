@@ -31,7 +31,7 @@ export default function SignUpForm({login, triggerRedirect}) {
     e.preventDefault();
 
     validateForm()
-      .then(isValid => {
+      .then(async isValid => {
         if (isValid) {
           let data = {
             "username": username,
@@ -39,18 +39,29 @@ export default function SignUpForm({login, triggerRedirect}) {
             "email": email,
           }
 
-          fetch("http://localhost:8080/users", {
+          const newUser = await fetch("http://localhost:8080/users/signup", {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
               "content-type": "application/json"
             }
           }).then(res => res.json())
-            .then(res => {
-              login(res);
-              triggerRedirect();
-            })
             .catch(error => console.log(error));
+
+          newUser.token = await fetch(`http://localhost:8080/auth`, {
+            method: "POST",
+            body: JSON.stringify({
+              "username": newUser.email,
+              "password": newUser.password
+            }),
+            headers: {
+              "content-type": "application/json"
+            }
+          }).then(res => res.json())
+            .catch(error => console.log(error));
+
+          login(newUser);
+          triggerRedirect();
         }
       })
   }

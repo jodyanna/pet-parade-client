@@ -46,9 +46,10 @@ export default function Pet({user, pet}) {
           {
             pet.birthday !== null && <span className={styles.stat}>🎂 {pet.birthday}</span>
           }
-          <span className={styles.stat}>❤️ {pet.likes}</span>
-          <span className={styles.stat}>⭐ {pet.ratingAvg}</span>
-          <span className={styles.stat}>🐾 {pet.ratingsCount}</span>
+          <span className={styles.stat}>
+            ❤️ {pet.stats.likes}
+          </span>
+          {pet.stats.rating !== null && <span className={styles.stat}>⭐ {pet.stats.rating}</span>}
         </div>
       </div>
 

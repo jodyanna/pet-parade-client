@@ -54,7 +54,8 @@ export default function PetForm({user, login, handleClick, handleRefresh}) {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
-              "content-type": "application/json"
+              "content-type": "application/json",
+              "authorization": "Bearer " + user.token.jwt
             }
           }).then(res => res.json())
             .then(res => {
