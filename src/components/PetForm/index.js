@@ -60,6 +60,7 @@ export default function PetForm({user, login, handleClick, handleRefresh}) {
           }).then(res => res.json())
             .then(res => {
               user.pets.push(res.id);
+              user.stats.petCount += 1;
               login(user);
               handleRefresh();
               handleClick();

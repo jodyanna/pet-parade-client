@@ -26,6 +26,7 @@ export default function PetRatingForm({user, pet, petImage, handleClick}) {
       .catch(error => console.log(error))
 
     user.ratings.push(newRating);
+    user.stats.ratingsGivenCount += 1;
     pet.ratings.push(newRating);
 
     handleClick();
