@@ -8,8 +8,27 @@ export default function PetRatingForm({user, pet, petImage, handleClick}) {
 
   const changeRating = newRating => setRating(newRating)
 
-  const handleSubmit = () => {
+  const handleSubmit = async e => {
+    e.preventDefault();
 
+    const newRating = await fetch("http://localhost:8080/ratings", {
+      method: "POST",
+      body: JSON.stringify({
+        rating: rating,
+        petId: pet.id,
+        userId: user.id
+      }),
+      headers: {
+        "content-type": "application/json",
+        "authorization": "Bearer " + user.token.jwt
+      }
+    }).then(res => res.json())
+      .catch(error => console.log(error))
+
+    user.ratings.push(newRating);
+    pet.ratings.push(newRating);
+
+    handleClick();
   }
 
   return (

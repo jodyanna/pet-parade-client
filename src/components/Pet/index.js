@@ -13,6 +13,30 @@ export default function Pet({user, pet}) {
 
   }
 
+  /**
+   * Conditional rendering of rating button, gates the rating form from unintended use cases.
+   */
+  const renderRatingButton = () => {
+    // user is not logged in
+    if (user === null) return;
+
+    // user is the owner of this pet
+    if (user.id === pet.owner) return;
+
+    // user has already rated this pet
+    let isRated = false;
+    for (let rating of user.ratings) {
+      if (rating.ratedPet === pet.id) {
+        isRated = true;
+        break;
+      }
+    }
+    if (isRated) return;
+
+    // passed all gates, show the button
+    return <button onClick={handleRateClick} className={styles.buttonRate}>⭐</button>
+  }
+
   return (
     <div className={styles.container}>
 
@@ -24,18 +48,15 @@ export default function Pet({user, pet}) {
               <img src={heartEmpty} className={styles.icon} alt="like-heart.png" />
             </button>
         }
-        {
-          isRatingFormVisible &&
-            <PetRatingForm user={user} pet={pet} petImage={blankProfile} handleClick={handleRateClick} />
-        }
       </div>
       
       <div className={styles.info}>
         <header className={styles.header}>
           <h2 className={styles.name}>{pet.name}</h2>
+          {renderRatingButton()}
           {
-            user !== null &&
-              <button onClick={handleRateClick} className={styles.buttonRate}>⭐</button>
+            isRatingFormVisible &&
+              <PetRatingForm user={user} pet={pet} petImage={blankProfile} handleClick={handleRateClick} />
           }
         </header>
         
