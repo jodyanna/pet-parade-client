@@ -32,6 +32,27 @@ export default function Pet({user, pet}) {
     }
   }
 
+  const handleRemoveLikeClick = async () => {
+    const response = await fetch("http://localhost:8080/likes", {
+      method: "DELETE",
+      body: JSON.stringify({
+        petId: pet.id,
+        userId: user.id
+      }),
+      headers: {
+        "content-type": "application/json",
+        "authorization": "Bearer " + user.token.jwt
+      }
+    }).then(res => res.text())
+      .catch(error => console.log(error));
+
+    if (response === "Success") {
+      user.likedPets = user.likedPets.filter(id => id !== pet.id);
+      pet.likingUsers = pet.likingUsers.filter(id => id !== user.id);
+      setIsRefresh(!isRefresh); // force reload of component
+    }
+  }
+
   const renderLikeButton = () => {
     // user is not logged in
     if (user === null) return;
@@ -48,9 +69,9 @@ export default function Pet({user, pet}) {
       }
     }
     if (isLiked) return (
-      <div className={styles.heartFilled}>
+      <button onClick={handleRemoveLikeClick} className={styles.buttonLike}>
         <img src={heartFilled} className={styles.icon} alt="like-heart.png" />
-      </div>
+      </button>
     )
 
     // passed all gates, show the button

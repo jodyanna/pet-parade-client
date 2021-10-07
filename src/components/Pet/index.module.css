@@ -40,22 +40,6 @@
   cursor: pointer;
 }
 
-.heartFilled {
-  position: absolute;
-  z-index: 99;
-  top: 0;
-  right: 0;
-  box-sizing: border-box;
-  width: 50px;
-  margin: 1rem;
-  padding: 0.5rem;
-  font-size: 1.2em;
-  color: #48477e;
-  font-weight: bold;
-  background-color: transparent;
-  border: none;
-}
-
 .icon {
   width: 36px;
 }
