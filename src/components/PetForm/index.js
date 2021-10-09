@@ -3,11 +3,11 @@ import styles from "./index.module.css";
 import errorIcon from "./error-icon.png";
 import DatePicker from "react-date-picker";
 
-export default function PetForm({user, login, handleClick, handleRefresh}) {
-  const [petName, setPetName] = useState("");
-  const [bio, setBio] = useState("");
-  const [birthday, setBirthday] = useState(null);
-  const [species, setSpecies] = useState("");
+export default function PetForm({user, login, pet, handleClick}) {
+  const [petName, setPetName] = useState(pet === undefined ? "" : pet.name);
+  const [bio, setBio] = useState(pet === undefined ? "" : pet.bio);
+  const [birthday, setBirthday] = useState(pet === undefined ? null : pet.birthday);
+  const [species, setSpecies] = useState(pet === undefined ? "" : pet.species);
   const [allSpecies, setAllSpecies] = useState([]);
   const [errors, setErrors] = useState({
     petName: {
@@ -21,6 +21,7 @@ export default function PetForm({user, login, handleClick, handleRefresh}) {
   });
 
   useEffect(() => {
+    // Get all species for select input
     fetch("http://localhost:8080/species", {
       method: "GET",
       headers: {
@@ -42,6 +43,7 @@ export default function PetForm({user, login, handleClick, handleRefresh}) {
       .then(isValid => {
         if (isValid) {
           const data = {
+            id: pet === undefined ? null : pet.id,
             owner: user.id,
             name: petName,
             bio: bio,
@@ -51,7 +53,7 @@ export default function PetForm({user, login, handleClick, handleRefresh}) {
           }
 
           fetch("http://localhost:8080/pets", {
-            method: "POST",
+            method: pet === undefined ? "POST" : "PUT",
             body: JSON.stringify(data),
             headers: {
               "content-type": "application/json",
@@ -59,11 +61,14 @@ export default function PetForm({user, login, handleClick, handleRefresh}) {
             }
           }).then(res => res.json())
             .then(res => {
-              user.pets.push(res.id);
-              user.stats.petCount += 1;
-              login(user);
-              handleRefresh();
-              handleClick();
+              if (pet === undefined) {
+                user.pets.push(res.id);
+                user.stats.petCount += 1;
+                login(user);
+              } else {
+                pet = res;
+              }
+              window.location.reload();
             })
             .catch(error => console.log(error));
         }
@@ -109,7 +114,9 @@ export default function PetForm({user, login, handleClick, handleRefresh}) {
     <div className={styles.wrapper}>
       <form onSubmit={handleSubmit} className={styles.formContainer}>
         <header className={styles.header}>
-          <h2 className={styles.heading}>Create pet</h2>
+          <h2 className={styles.heading}>
+            {pet === undefined ? "Create pet" : "Edit " + pet.name}
+          </h2>
         </header>
 
         <div className={styles.textFieldContainer}>

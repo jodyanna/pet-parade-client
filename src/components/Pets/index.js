@@ -7,11 +7,8 @@ export default function Pets({user, login}) {
   const [pets, setPets] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isFormVisible, setIsFormVisible] = useState(false);
-  const [refresh, setRefresh] = useState(false);
 
   const handleClick = () => setIsFormVisible(!isFormVisible)
-
-  const handleRefresh = () => setRefresh(!refresh)
 
   useEffect(() => {
     const fetchAllPets = async ids => {
@@ -41,12 +38,12 @@ export default function Pets({user, login}) {
           setIsLoading(false);
         });
     }
-  }, [user.pets, refresh, user.token.jwt]);
+  }, [user.pets, user.token.jwt]);
 
   return (
     <div className={styles.container}>
       {
-        !isLoading && pets.map(pet => <Pet key={pet.id} user={user} pet={pet} />)
+        !isLoading && pets.map(pet => <Pet key={pet.id} user={user} pet={pet} login={login} />)
       }
 
       <div>
@@ -59,7 +56,6 @@ export default function Pets({user, login}) {
         isFormVisible && <PetForm user={user}
                                   login={login}
                                   handleClick={handleClick}
-                                  handleRefresh={handleRefresh}
         />
       }
     </div>

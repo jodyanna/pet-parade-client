@@ -4,12 +4,16 @@ import styles from "./index.module.css";
 import blankProfile from "./blank-profile.png";
 import heartEmpty from "./heart-empty.png";
 import heartFilled from "./heart-filled.png";
+import PetForm from "../PetForm";
 
-export default function Pet({user, pet}) {
+export default function Pet({user, pet, login}) {
   const [isRatingFormVisible, setIsRatingFormVisible] = useState(false);
+  const [isEditFormVisible, setIsEditFormVisible] = useState(false);
   const [isRefresh, setIsRefresh] = useState(false);
 
   const handleRateClick = () => setIsRatingFormVisible(!isRatingFormVisible)
+  const handleEditClick = () => setIsEditFormVisible(!isEditFormVisible)
+  const handleRefresh = () => setIsRefresh(!isRefresh)
 
   const handleLikeClick = async () => {
     const response = await fetch("http://localhost:8080/likes", {
@@ -88,9 +92,6 @@ export default function Pet({user, pet}) {
     )
   }
 
-  /**
-   * Conditional rendering of rating button, gates the rating form from unintended use cases.
-   */
   const renderRatingButton = () => {
     // user is not logged in
     if (user === null) return;
@@ -127,6 +128,17 @@ export default function Pet({user, pet}) {
           {
             isRatingFormVisible &&
               <PetRatingForm user={user} pet={pet} petImage={blankProfile} handleClick={handleRateClick} />
+          }
+          <button onClick={handleEditClick} className={styles.buttonRate}>
+            Edit
+          </button>
+          {
+            isEditFormVisible &&
+              <PetForm user={user}
+                       login={login}
+                       pet={pet}
+                       handleClick={handleEditClick}
+              />
           }
         </header>
         
