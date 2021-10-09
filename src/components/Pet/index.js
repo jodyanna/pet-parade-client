@@ -28,6 +28,7 @@ export default function Pet({user, pet}) {
     if (response === "Success") {
       user.likedPets.push(pet.id);
       pet.likingUsers.push(user.id);
+      localStorage.setItem("pet-parade-user-info", JSON.stringify(user));
       setIsRefresh(!isRefresh); // force reload of component
     }
   }
@@ -49,6 +50,7 @@ export default function Pet({user, pet}) {
     if (response === "Success") {
       user.likedPets = user.likedPets.filter(id => id !== pet.id);
       pet.likingUsers = pet.likingUsers.filter(id => id !== user.id);
+      localStorage.setItem("pet-parade-user-info", JSON.stringify(user));
       setIsRefresh(!isRefresh); // force reload of component
     }
   }
