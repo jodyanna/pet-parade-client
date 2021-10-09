@@ -14,6 +14,26 @@ export default function Pets({user, login}) {
   const handleRefresh = () => setRefresh(!refresh)
 
   useEffect(() => {
+    const fetchAllPets = async ids => {
+      const allPets = [];
+
+      for (let i = 0; i < ids.length; i++) {
+        const response = await fetch("http://localhost:8080/pets/" + ids[i], {
+          method: "GET",
+          headers: {
+            "content-type": "application/json",
+            "authentication": "Bearer " + user.token.jwt
+          }
+        }).catch(error => console.log(error));
+
+        const data = await response.json();
+
+        allPets.push(data);
+      }
+
+      return Promise.all(allPets);
+    }
+
     if (user.pets !== null) {
       fetchAllPets(user.pets)
         .then(res => {
@@ -21,27 +41,7 @@ export default function Pets({user, login}) {
           setIsLoading(false);
         });
     }
-  }, [user.pets, refresh]);
-
-  const fetchAllPets = async ids => {
-    const allPets = [];
-
-    for (let i = 0; i < ids.length; i++) {
-      const response = await fetch("http://localhost:8080/pets/" + ids[i], {
-        method: "GET",
-        headers: {
-          "content-type": "application/json",
-          "authentication": "Bearer " + user.token.jwt
-        }
-      }).catch(error => console.log(error));
-
-      const data = await response.json();
-
-      allPets.push(data);
-    }
-
-    return Promise.all(allPets);
-  }
+  }, [user.pets, refresh, user.token.jwt]);
 
   return (
     <div className={styles.container}>

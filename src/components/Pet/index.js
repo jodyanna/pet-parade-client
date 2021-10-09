@@ -28,6 +28,8 @@ export default function Pet({user, pet}) {
     if (response === "Success") {
       user.likedPets.push(pet.id);
       pet.likingUsers.push(user.id);
+      user.stats.likesGivenCount += 1;
+      pet.stats.likes += 1;
       localStorage.setItem("pet-parade-user-info", JSON.stringify(user));
       setIsRefresh(!isRefresh); // force reload of component
     }
@@ -50,6 +52,8 @@ export default function Pet({user, pet}) {
     if (response === "Success") {
       user.likedPets = user.likedPets.filter(id => id !== pet.id);
       pet.likingUsers = pet.likingUsers.filter(id => id !== user.id);
+      user.stats.likesGivenCount -= 1;
+      pet.stats.likes -= 1;
       localStorage.setItem("pet-parade-user-info", JSON.stringify(user));
       setIsRefresh(!isRefresh); // force reload of component
     }

@@ -1,12 +1,10 @@
-import React, {useState, useEffect, useRef} from "react";
+import React, {useState, useEffect} from "react";
 import styles from "./index.module.css";
 import Pet from "../Pet";
 
 export default function Home({user}) {
   const [recentPets, setRecentPets] = useState([]);
   const [isFetchingRecent, setIsFetchingRecent] = useState(true);
-
-  const mountedRef = useRef(true)
 
   useEffect(() => {
     // Request recently created pets
@@ -21,11 +19,7 @@ export default function Home({user}) {
         setIsFetchingRecent(false);
       })
       .catch(error => console.log(error))
-
-    return () => {
-      mountedRef.current = false;
-    }
-  }, [recentPets])
+  }, [])
 
   return (
     <div className={styles.container}>
