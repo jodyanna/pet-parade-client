@@ -13,7 +13,6 @@ export default function Pet({user, pet, login}) {
 
   const handleRateClick = () => setIsRatingFormVisible(!isRatingFormVisible)
   const handleEditClick = () => setIsEditFormVisible(!isEditFormVisible)
-  const handleRefresh = () => setIsRefresh(!isRefresh)
 
   const handleLikeClick = async () => {
     const response = await fetch("http://localhost:8080/likes", {
@@ -113,6 +112,18 @@ export default function Pet({user, pet, login}) {
     return <button onClick={handleRateClick} className={styles.buttonRate}>⭐</button>
   }
 
+  const renderEditButton = () => {
+    // user is not logged in
+    if (user === null) return;
+
+    // user is the owner of this pet
+    if (user.id === pet.owner) return (
+      <button onClick={handleEditClick} className={styles.buttonRate}>
+        Edit
+      </button>
+    )
+  }
+
   return (
     <div className={styles.container}>
 
@@ -129,9 +140,7 @@ export default function Pet({user, pet, login}) {
             isRatingFormVisible &&
               <PetRatingForm user={user} pet={pet} petImage={blankProfile} handleClick={handleRateClick} />
           }
-          <button onClick={handleEditClick} className={styles.buttonRate}>
-            Edit
-          </button>
+          {renderEditButton()}
           {
             isEditFormVisible &&
               <PetForm user={user}

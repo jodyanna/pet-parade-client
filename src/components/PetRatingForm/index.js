@@ -28,6 +28,7 @@ export default function PetRatingForm({user, pet, petImage, handleClick}) {
     user.ratings.push(newRating);
     user.stats.ratingsGivenCount += 1;
     pet.ratings.push(newRating);
+    localStorage.setItem("pet-parade-user-info", JSON.stringify(user));
 
     handleClick();
   }
@@ -71,7 +72,6 @@ export default function PetRatingForm({user, pet, petImage, handleClick}) {
           </div>
         </div>
 
-        
       </form>
     </div>
   )
