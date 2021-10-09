@@ -60,6 +60,8 @@ export default function SignUpForm({login, triggerRedirect}) {
           }).then(res => res.json())
             .catch(error => console.log(error));
 
+          // Format date to default api return
+          newUser.dateCreated = newUser.dateCreated.split("T")[0];
           login(newUser);
           triggerRedirect();
         }
