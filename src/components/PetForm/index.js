@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import styles from "./index.module.css";
 import errorIcon from "./error-icon.png";
 import DatePicker from "react-date-picker";
@@ -143,11 +143,14 @@ export default function PetForm({user, login, pet, handleClick}) {
           <DatePicker value={birthday} onChange={setBirthday} className={styles.datePicker} />
         </div>
 
-        <SpeciesSelectInput species={species}
-                            setSpecies={setSpecies}
-                            hasAny={false}
-                            wrapperStyle={errors.species.isValid ? styles.fieldContainer : styles.fieldError}
-        />
+        <div className={errors.species.isValid ? styles.fieldContainer : styles.fieldError}>
+          <label className={styles.dateLabel}>Species</label>
+          <SpeciesSelectInput species={species}
+                              setSpecies={setSpecies}
+                              hasAny={false}
+                              alignRight={true}
+          />
+        </div>
 
         <div className={styles.buttonContainer}>
           <input type="submit" value="Submit" className={styles.button} />

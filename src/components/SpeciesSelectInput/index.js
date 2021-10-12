@@ -1,7 +1,7 @@
 import React, {useState ,useEffect} from "react";
 import styles from "./index.module.css";
 
-export default function SpeciesSelectInput({species, setSpecies, hasAny, wrapperStyle=styles.speciesSelect}) {
+export default function SpeciesSelectInput({species, setSpecies, hasAny, alignRight=false}) {
   const [allSpecies, setAllSpecies] = useState([]);
 
   useEffect(() => {
@@ -18,10 +18,9 @@ export default function SpeciesSelectInput({species, setSpecies, hasAny, wrapper
   const handleSpeciesChange = e => setSpecies(e.target.value)
 
   return (
-    <div className={wrapperStyle}>
-      <label>Species</label>
+    <div className={alignRight ? styles.speciesSelectRight : styles.speciesSelect}>
       <select name="species"
-              className={styles.selectInput}
+              className={alignRight ? styles.selectInputRight : styles.selectInput}
               value={species}
               onChange={handleSpeciesChange}
       >

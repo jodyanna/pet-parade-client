@@ -1,25 +1,11 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import styles from "./index.module.css";
 import Pet from "../Pet";
 import SpeciesSelectInput from "../SpeciesSelectInput";
 
 export default function Leaderboard({user}) {
   const [species, setSpecies] = useState("0");
-  const [allSpecies, setAllSpecies] = useState([]);
   const [results, setResults] = useState([]);
-
-  const handleSpeciesChange = e => setSpecies(e.target.value)
-
-  useEffect(() => {
-    fetch("http://localhost:8080/species", {
-      method: "GET",
-      headers: {
-        "content-type": "application/json"
-      }
-    }).then(res => res.json())
-      .then(res => setAllSpecies(res))
-      .catch(error => console.log(error));
-  }, []);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -64,11 +50,11 @@ export default function Leaderboard({user}) {
   return (
     <div>
       <form onSubmit={handleSubmit} className={styles.formContainer}>
+        <label className={styles.speciesSelectLabel}>Species</label>
         <SpeciesSelectInput species={species}
                             setSpecies={setSpecies}
                             hasAny={true}
         />
-
         <input type="submit" value="Search" className={styles.submit} />
       </form>
 
