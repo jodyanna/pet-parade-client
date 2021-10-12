@@ -13,6 +13,7 @@ import SignUp from "./components/SignUp";
 import User from "./components/User";
 import Leaderboard from "./components/Leaderboard";
 import About from "./components/About";
+import Admin from "./components/Admin";
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -54,6 +55,13 @@ export default function App() {
               <Route path="/user">
                 <User user={user} login={login} />
               </Route>
+            }
+
+            {
+              user !== null && user.roles.includes("ROLE_ADMIN") &&
+                <Route path="/admin">
+                  <Admin user={user} />
+                </Route>
             }
 
             <Route path="/leaderboard">

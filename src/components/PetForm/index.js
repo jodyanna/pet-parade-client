@@ -2,13 +2,13 @@ import React, {useState, useEffect} from "react";
 import styles from "./index.module.css";
 import errorIcon from "./error-icon.png";
 import DatePicker from "react-date-picker";
+import SpeciesSelectInput from "../SpeciesSelectInput";
 
 export default function PetForm({user, login, pet, handleClick}) {
   const [petName, setPetName] = useState(pet === undefined ? "" : pet.name);
   const [bio, setBio] = useState(pet === undefined ? "" : pet.bio);
   const [birthday, setBirthday] = useState(pet === undefined ? null : pet.birthday);
   const [species, setSpecies] = useState(pet === undefined ? "" : pet.species);
-  const [allSpecies, setAllSpecies] = useState([]);
   const [errors, setErrors] = useState({
     petName: {
       message: "",
@@ -20,21 +20,8 @@ export default function PetForm({user, login, pet, handleClick}) {
     }
   });
 
-  useEffect(() => {
-    // Get all species for select input
-    fetch("http://localhost:8080/species", {
-      method: "GET",
-      headers: {
-        "content-type": "application/json"
-      }
-    }).then(res => res.json())
-      .then(res => setAllSpecies(res))
-      .catch(error => console.log(error));
-  }, []);
-
   const handlePetNameChange = e => setPetName(e.target.value)
   const handleBioChange = e => setBio(e.target.value)
-  const handleSpeciesChange = e => setSpecies(e.target.value)
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -156,19 +143,11 @@ export default function PetForm({user, login, pet, handleClick}) {
           <DatePicker value={birthday} onChange={setBirthday} className={styles.datePicker} />
         </div>
 
-        <div className={errors.species.isValid ? styles.fieldContainer : styles.fieldError}>
-          <label className={styles.dateLabel}>Species</label>
-          <select name="species"
-                  className={styles.selectInput}
-                  value={species}
-                  onChange={handleSpeciesChange}
-          >
-            <option value={""}>Select species</option>
-            {
-              allSpecies.map(species => <option key={species.id} value={species.id}>{species.name}</option>)
-            }
-          </select>
-        </div>
+        <SpeciesSelectInput species={species}
+                            setSpecies={setSpecies}
+                            hasAny={false}
+                            wrapperStyle={errors.species.isValid ? styles.fieldContainer : styles.fieldError}
+        />
 
         <div className={styles.buttonContainer}>
           <input type="submit" value="Submit" className={styles.button} />

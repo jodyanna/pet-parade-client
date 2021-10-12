@@ -30,6 +30,10 @@ export default function Nav({ user, logout }) {
           :
           <div>
             <Link to="/user" className={styles.navBarItem}>My Profile</Link>
+            {
+              user.roles.includes("ROLE_ADMIN") &&
+                <Link to="/admin" className={styles.navBarItem}>Admin</Link>
+            }
             <button className={styles.logoutButton} onClick={handleLogoutClick}>Logout</button>
           </div>
         }
@@ -48,9 +52,6 @@ export default function Nav({ user, logout }) {
             <Link to="/" className={styles.navMenuItem}>Home</Link>
             <Link to="/about" className={styles.navMenuItem}>About</Link>
             <Link to="/leaderboard" className={styles.navMenuItem}>Leaderboard</Link>
-            <Link to="/user" className={styles.navMenuItem}>My Profile</Link>
-            <Link to="/login" className={styles.navMenuItem}>Log in</Link>
-            <Link to="/signup" className={styles.navMenuItem}>Sign up</Link>
           </nav>
           :
           <button onClick={handleClick} className={styles.navButton}>
