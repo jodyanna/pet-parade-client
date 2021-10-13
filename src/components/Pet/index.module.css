@@ -108,3 +108,21 @@
   padding: 0.2rem 0.5rem;
   margin: 0.2rem;
 }
+
+.reportButtonRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.reportButton {
+  color: #302f55;
+  border: none;
+  background-color: inherit;
+}
+
+.reportButton:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}

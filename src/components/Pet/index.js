@@ -5,14 +5,17 @@ import blankProfile from "./blank-profile.png";
 import heartEmpty from "./heart-empty.png";
 import heartFilled from "./heart-filled.png";
 import PetForm from "../PetForm";
+import PetReportForm from "../PetReportForm";
 
 export default function Pet({user, pet, login}) {
   const [isRatingFormVisible, setIsRatingFormVisible] = useState(false);
   const [isEditFormVisible, setIsEditFormVisible] = useState(false);
+  const [isReportFormVisible, setIsReportFormVisible] = useState(false);
   const [isRefresh, setIsRefresh] = useState(false);
 
   const handleRateClick = () => setIsRatingFormVisible(!isRatingFormVisible)
   const handleEditClick = () => setIsEditFormVisible(!isEditFormVisible)
+  const handleReportClick = () => setIsReportFormVisible(!isReportFormVisible)
 
   const handleLikeClick = async () => {
     const response = await fetch("http://localhost:8080/likes", {
@@ -163,6 +166,13 @@ export default function Pet({user, pet, login}) {
             ❤️ {pet.stats.likes}
           </span>
           {pet.stats.rating !== null && <span className={styles.stat}>⭐ {pet.stats.rating}</span>}
+        </div>
+
+        <div className={styles.reportButtonRow}>
+          <button onClick={handleReportClick} className={styles.reportButton}>Report</button>
+          {
+            isReportFormVisible && <PetReportForm user={user} pet={pet} handleClick={handleReportClick} />
+          }
         </div>
       </div>
 
