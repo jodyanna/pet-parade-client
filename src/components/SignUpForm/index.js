@@ -3,8 +3,7 @@ import {Link} from "react-router-dom";
 import styles from "./index.module.css";
 import errorIcon from "./error-icon.png";
 
-
-export default function SignUpForm({login, triggerRedirect}) {
+export default function SignUpForm({login, triggerRedirect, handleError}) {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -33,7 +32,7 @@ export default function SignUpForm({login, triggerRedirect}) {
     validateForm()
       .then(async isValid => {
         if (isValid) {
-          let data = {
+          const data = {
             "username": username,
             "password": password,
             "email": email,
@@ -46,24 +45,35 @@ export default function SignUpForm({login, triggerRedirect}) {
               "content-type": "application/json"
             }
           }).then(res => res.json())
+            .then(res => {
+              if (res.status === 500) {
+                handleError({
+                  isError: true,
+                  message: `The email "${email}" is already registered.`
+                })
+              }
+              else return res;
+            })
             .catch(error => console.log(error));
 
-          newUser.token = await fetch(`http://localhost:8080/auth`, {
-            method: "POST",
-            body: JSON.stringify({
-              "username": newUser.email,
-              "password": newUser.password
-            }),
-            headers: {
-              "content-type": "application/json"
-            }
-          }).then(res => res.json())
-            .catch(error => console.log(error));
+          if (newUser !== undefined) {
+            newUser.token = await fetch(`http://localhost:8080/auth`, {
+              method: "POST",
+              body: JSON.stringify({
+                "username": newUser.email,
+                "password": newUser.password
+              }),
+              headers: {
+                "content-type": "application/json"
+              }
+            }).then(res => res.json())
+              .catch(error => console.log(error));
 
-          // Format date to default api return
-          newUser.dateCreated = newUser.dateCreated.split("T")[0];
-          login(newUser);
-          triggerRedirect();
+            // Format date to default api return
+            newUser.dateCreated = newUser.dateCreated.split("T")[0];
+            login(newUser);
+            triggerRedirect();
+          }
         }
       })
   }
