@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import styles from "./index.module.css";
-import SpeciesUpdateForm from "../SpeciesUpdateForm";
-import SpeciesForm from "../SpeciesForm";
+import DbEditor from "../DbEditor";
 
 export default function Admin({user}) {
   const [isDbEditorVisible, setIsDbEditorVisible] = useState(true);
@@ -31,12 +30,10 @@ export default function Admin({user}) {
 
       <div className={styles.display}>
         {
-          isDbEditorVisible &&
-            <div className={styles.dbEditor}>
-              <SpeciesForm user={user} />
-              <SpeciesUpdateForm user={user} />
-            </div>
+          isDbEditorVisible && <DbEditor user={user} />
         }
+
+
 
       </div>
 
