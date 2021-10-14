@@ -2,11 +2,10 @@ import React, {useState} from "react";
 import styles from "./index.module.css";
 import errorIcon from "./error-icon.png";
 
-
 export default function UserProfileForm({user, login, handleClick}) {
-  const [username, setUsername] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
+  const [username, setUsername] = useState(user.username);
+  const [city, setCity] = useState(user.city === null ? "" : user.city);
+  const [state, setState] = useState(user.state === null ? "" : user.state);
   const [errors, setErrors] = useState({
     username: {
       message: "",
