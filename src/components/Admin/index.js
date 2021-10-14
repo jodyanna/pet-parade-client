@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import styles from "./index.module.css";
 import DbEditor from "../DbEditor";
+import ContentManager from "../ContentManager";
 
 export default function Admin({user}) {
   const [isDbEditorVisible, setIsDbEditorVisible] = useState(true);
@@ -32,9 +33,9 @@ export default function Admin({user}) {
         {
           isDbEditorVisible && <DbEditor user={user} />
         }
-
-
-
+        {
+          isContentManagerVisible && <ContentManager user={user} />
+        }
       </div>
 
     </div>

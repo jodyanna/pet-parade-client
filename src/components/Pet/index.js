@@ -119,6 +119,13 @@ export default function Pet({user, pet, login}) {
     // user is not logged in
     if (user === null) return;
 
+    // user is an admin and can edit any pet
+    if (user.roles.includes("ROLE_ADMIN")) return (
+      <button onClick={handleEditClick} className={styles.buttonRate}>
+        Edit
+      </button>
+    )
+
     // user is the owner of this pet
     if (user.id === pet.owner) return (
       <button onClick={handleEditClick} className={styles.buttonRate}>
@@ -138,20 +145,22 @@ export default function Pet({user, pet, login}) {
       <div className={styles.info}>
         <header className={styles.header}>
           <h2 className={styles.name}>{pet.name}</h2>
-          {renderRatingButton()}
-          {
-            isRatingFormVisible &&
+          <div className={styles.rateAndEditButtons}>
+            {renderRatingButton()}
+            {
+              isRatingFormVisible &&
               <PetRatingForm user={user} pet={pet} petImage={blankProfile} handleClick={handleRateClick} />
-          }
-          {renderEditButton()}
-          {
-            isEditFormVisible &&
+            }
+            {renderEditButton()}
+            {
+              isEditFormVisible &&
               <PetForm user={user}
                        login={login}
                        pet={pet}
                        handleClick={handleEditClick}
               />
-          }
+            }
+          </div>
         </header>
         
         <span className={styles.bio}>

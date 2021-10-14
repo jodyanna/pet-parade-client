@@ -9,6 +9,7 @@ export default function PetForm({user, login, pet, handleClick}) {
   const [bio, setBio] = useState(pet === undefined ? "" : pet.bio);
   const [birthday, setBirthday] = useState(pet === undefined ? null : pet.birthday);
   const [species, setSpecies] = useState(pet === undefined ? "" : pet.species);
+  const [isFlagged, setIsFlagged] = useState(pet === undefined ? false : pet.isFlagged);
   const [errors, setErrors] = useState({
     petName: {
       message: "",
@@ -22,6 +23,7 @@ export default function PetForm({user, login, pet, handleClick}) {
 
   const handlePetNameChange = e => setPetName(e.target.value)
   const handleBioChange = e => setBio(e.target.value)
+  const handleIsFlaggedChange = () => setIsFlagged(!isFlagged)
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -31,12 +33,12 @@ export default function PetForm({user, login, pet, handleClick}) {
         if (isValid) {
           const data = {
             id: pet === undefined ? null : pet.id,
-            owner: user.id,
+            owner: determinePetOwner(),
             name: petName,
             bio: bio,
             birthday: birthday,
             species: parseInt(species),
-            isFlagged: false
+            isFlagged: pet === undefined ? false : isFlagged
           }
 
           fetch("http://localhost:8080/pets", {
@@ -52,15 +54,21 @@ export default function PetForm({user, login, pet, handleClick}) {
                 user.pets.push(res.id);
                 user.stats.petCount += 1;
                 login(user);
-              } else {
-                pet = res;
               }
               window.location.reload();
             })
             .catch(error => console.log(error));
         }
       })
+  }
 
+  const determinePetOwner = () => {
+    // New pet so use current user id
+    if (pet === undefined) return user.id;
+
+    // Editing existing pet, don't use admin id if not the actual owner
+    if (user.id === pet.owner) return user.id;
+    else return pet.owner;
   }
 
   const validateForm = async () => {
@@ -151,6 +159,18 @@ export default function PetForm({user, login, pet, handleClick}) {
                               alignRight={true}
           />
         </div>
+
+        {
+          user.roles.includes("ROLE_ADMIN") &&
+            <div className={styles.fieldContainer}>
+              <label className={styles.dateLabel}>Flagged</label>
+              <input type="checkbox"
+                     checked={isFlagged}
+                     onChange={handleIsFlaggedChange}
+                     className={styles.checkbox}
+              />
+            </div>
+        }
 
         <div className={styles.buttonContainer}>
           <input type="submit" value="Submit" className={styles.button} />

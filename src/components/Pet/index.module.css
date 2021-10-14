@@ -68,10 +68,15 @@
   margin: 0;
 }
 
+.rateAndEditButtons {
+  margin: 0 0 0 auto;
+}
+
 .buttonRate {
   box-sizing: border-box;
   width: 50px;
-  margin: 0 0 0 auto;
+  height: 40px;
+  margin: 0.5rem 0 0.5rem 0.5rem;
   padding: 0.5rem;
   font-size: 1.2em;
   color: #48477e;

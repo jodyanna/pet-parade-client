@@ -179,3 +179,7 @@
 .button:hover {
   background-color: #302f55;
 }
+
+.checkbox {
+  margin: 0 0 0 auto;
+}
