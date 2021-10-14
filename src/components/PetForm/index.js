@@ -18,6 +18,10 @@ export default function PetForm({user, login, pet, handleClick}) {
     species: {
       message: "",
       isValid: true
+    },
+    bio: {
+      message: "",
+      isValid: true
     }
   });
 
@@ -74,15 +78,17 @@ export default function PetForm({user, login, pet, handleClick}) {
   const validateForm = async () => {
     let errors = {
       petName: {},
-      species: {}
+      species: {},
+      bio: {}
     };
 
     errors.petName = validateTextField(petName);
     errors.species = validateTextField(species);
+    errors.bio = validateTextarea(bio);
 
     setErrors(errors);
 
-    return errors.petName.isValid && errors.species.isValid
+    return errors.petName.isValid && errors.species.isValid && errors.bio.isValid
   }
 
   /**
@@ -97,12 +103,33 @@ export default function PetForm({user, login, pet, handleClick}) {
         isValid: false
       }
     }
+    else if (field.length > 25) {
+      return {
+        message: `This field cannot be over 25 characters.`,
+        isValid: false
+      }
+    }
     else {
       return {
         message: "",
         isValid: true
       }
     }
+  }
+
+  const validateTextarea = field => {
+     if (field.length > 100) {
+       return {
+         message: "This field is over 100 character limit.",
+         isValid: false
+       }
+     }
+     else {
+       return {
+         message: "",
+         isValid: true
+       }
+     }
   }
 
   return (
@@ -136,6 +163,7 @@ export default function PetForm({user, login, pet, handleClick}) {
         <div className={styles.textFieldContainer}>
           <label htmlFor="bio" className={styles.textareaInputLabel}>
             Bio
+            <p className={styles.errorText}>{errors.bio.message}</p>
           </label>
           <div className={styles.textareaInputContainer}>
             <textarea name="bio"
@@ -144,6 +172,9 @@ export default function PetForm({user, login, pet, handleClick}) {
                       onChange={handleBioChange}
             />
           </div>
+          <p className={styles.textareaState}>
+            <span style={bio.length > 100 ? {color: "darkred"} : {}}>{bio.length}&nbsp;</span> / 100
+          </p>
         </div>
 
         <div className={styles.fieldContainer}>
