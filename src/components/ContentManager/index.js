@@ -20,7 +20,7 @@ export default function ContentManager({user}) {
 
   return (
     <div className={styles.container}>
-      {pets.map(pet => <Pet user={user} pet={pet} />)}
+      {pets.map(pet => <Pet key={pet.id} user={user} pet={pet} />)}
     </div>
   )
 }

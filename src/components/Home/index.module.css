@@ -47,7 +47,7 @@
 .announcements {
   box-sizing: border-box;
   width: 30%;
-  margin: 0 1rem;
+  margin: 0 0 0 auto;
   padding: 1rem;
   border: 2px solid #48477e;
   border-radius: 15px;
