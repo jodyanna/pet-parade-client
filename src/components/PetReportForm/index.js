@@ -9,7 +9,7 @@ export default function PetReportForm({user, pet, handleClick}) {
     // Don't do anything if pet is already flagged true
     if (!pet.isFlagged) {
       pet.isFlagged = true;
-      fetch("http://localhost:8080/pets", {
+      fetch(process.env.REACT_APP_API_URI + "/pets", {
         method: "PUT",
         body: JSON.stringify(pet),
         headers: {

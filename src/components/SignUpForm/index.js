@@ -38,7 +38,7 @@ export default function SignUpForm({login, triggerRedirect, handleError}) {
             "email": email,
           }
 
-          const newUser = await fetch("http://localhost:8080/users/signup", {
+          const newUser = await fetch(process.env.REACT_APP_API_URI + "/users/signup", {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
@@ -57,7 +57,7 @@ export default function SignUpForm({login, triggerRedirect, handleError}) {
             .catch(error => console.log(error));
 
           if (newUser !== undefined) {
-            newUser.token = await fetch(`http://localhost:8080/auth`, {
+            newUser.token = await fetch(process.env.REACT_APP_API_URI + "/auth", {
               method: "POST",
               body: JSON.stringify({
                 "username": newUser.email,

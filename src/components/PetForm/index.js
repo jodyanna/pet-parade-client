@@ -45,7 +45,7 @@ export default function PetForm({user, login, pet, handleClick}) {
             isFlagged: pet === undefined ? false : isFlagged
           }
 
-          fetch("http://localhost:8080/pets", {
+          fetch(process.env.REACT_APP_API_URI + "/pets", {
             method: pet === undefined ? "POST" : "PUT",
             body: JSON.stringify(data),
             headers: {

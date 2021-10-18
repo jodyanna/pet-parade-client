@@ -26,7 +26,7 @@ export default function LoginForm({login, handleError, triggerRedirect}) {
     validateForm()
       .then(async isValid => {
         if (isValid) {
-          const token = await fetch(`http://localhost:8080/auth`, {
+          const token = await fetch(process.env.REACT_APP_API_URI + "/auth", {
               method: "POST",
               body: JSON.stringify({
                 "username": email,
@@ -51,7 +51,7 @@ export default function LoginForm({login, handleError, triggerRedirect}) {
             .catch(() => handleError({isError: true, message: "Incorrect password."}));
 
           if (token !== undefined) {
-            fetch("http://localhost:8080/users/login", {
+            fetch(process.env.REACT_APP_API_URI + "/users/login", {
               method: "POST",
               body: JSON.stringify({
                 "email": email,

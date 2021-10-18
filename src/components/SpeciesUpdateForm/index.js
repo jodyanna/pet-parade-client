@@ -11,7 +11,7 @@ export default function SpeciesUpdateForm({user}) {
   const handleSubmit = e => {
     e.preventDefault();
 
-    fetch("http://localhost:8080/species/update", {
+    fetch(process.env.REACT_APP_API_URI + "/species/update", {
       method: "PUT",
       body: JSON.stringify({
         id: parseInt(species),

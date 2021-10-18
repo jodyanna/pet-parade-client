@@ -14,7 +14,7 @@ export default function Leaderboard({user}) {
       species: parseInt(species)
     };
 
-    fetch("http://localhost:8080/pets/species", {
+    fetch(process.env.REACT_APP_API_URI + "/pets/species", {
       method: "POST",
       body: JSON.stringify(data),
       headers: {

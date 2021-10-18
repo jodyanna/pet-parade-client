@@ -6,7 +6,7 @@ export default function ContentManager({user}) {
   const [pets, setPets] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/pets/flagged", {
+    fetch(process.env.REACT_APP_API_URI + "/pets/flagged", {
       method: "GET",
       headers: {
         "content-type": "application/json",

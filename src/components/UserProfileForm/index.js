@@ -27,7 +27,7 @@ export default function UserProfileForm({user, login, handleClick}) {
           user.city = city.length > 0 ? city : null;
           user.state = state.length > 0 ? state : null;
 
-          fetch("http://localhost:8080/users", {
+          fetch(process.env.REACT_APP_API_URI + "/users", {
             method: "PUT",
             body: JSON.stringify(user),
             headers: {
