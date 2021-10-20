@@ -36,7 +36,8 @@ export default function Pets({user, login}) {
         .then(res => {
           setPets(res);
           setIsLoading(false);
-        });
+        })
+        .catch(error => console.error(error));
     }
   }, [user.pets, user.token.jwt]);
 
