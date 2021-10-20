@@ -14,6 +14,7 @@ import User from "./components/User";
 import Leaderboard from "./components/Leaderboard";
 import About from "./components/About";
 import Admin from "./components/Admin";
+import FourZeroFour from "./components/FourZeroFour";
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -78,6 +79,10 @@ export default function App() {
 
             <Route exact path="/">
               <Home user={user} />
+            </Route>
+
+            <Route path="*">
+              <FourZeroFour />
             </Route>
           </Switch>
         </div>
