@@ -57,3 +57,37 @@
   margin: 0 0 1rem 0;
   border-bottom: 1px solid #302f55;
 }
+
+@media only screen and (max-width: 600px) {
+  .announcements {
+    display: none;
+  }
+
+  .recentPetsHeading {
+    box-sizing: border-box;
+    width: 300px;
+    margin: 0 0 1rem 0;
+    padding: 1rem;
+    color: white;
+    background-color: #48477e;
+  }
+
+  .recentPets {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .greeting {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+    margin: 1rem 0;
+    padding: 0 1rem;
+  }
+}

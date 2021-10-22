@@ -191,3 +191,26 @@
 .checkbox {
   margin: 0 0 0 auto;
 }
+
+@media only screen and (max-width: 600px) {
+  .formContainer {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 90%;
+    padding: 1rem;
+    background-color: #ffffff;
+    border-radius: 15px;
+  }
+
+  /*
+  TODO: Date picker sits to far to the right in responsive mode
+   */
+  .datePicker {
+    width: 40%;
+    margin: 0 0 0 auto;
+    border-color: #302f55;
+  }
+}

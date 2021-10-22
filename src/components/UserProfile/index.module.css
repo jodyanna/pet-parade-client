@@ -52,3 +52,9 @@
   height: 24px;
   margin: 0 0.5rem 0 0;
 }
+
+@media only screen and (max-width: 600px) {
+  .container {
+    display: none;
+  }
+}

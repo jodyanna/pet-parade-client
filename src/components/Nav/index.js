@@ -65,10 +65,6 @@ export default function Nav({ user, logout }) {
                 :
                 <div>
                   <Link to="/user" onClick={handleClick} className={styles.navMenuItem}>My Profile</Link>
-                  {
-                    user.roles.includes("ROLE_ADMIN") &&
-                    <Link to="/admin" onClick={handleClick} className={styles.navMenuItem}>Admin</Link>
-                  }
                   <button className={styles.navMenuLogoutButton} onClick={handleNavMenuLogoutClick}>Logout</button>
                 </div>
             }

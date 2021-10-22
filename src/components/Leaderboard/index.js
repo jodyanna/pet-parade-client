@@ -48,7 +48,7 @@ export default function Leaderboard({user}) {
   }
 
   return (
-    <div>
+    <div className={styles.container}>
       <form onSubmit={handleSubmit} className={styles.formContainer}>
         <label className={styles.speciesSelectLabel}>Species</label>
         <SpeciesSelectInput species={species}
