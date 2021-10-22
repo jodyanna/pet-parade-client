@@ -70,8 +70,18 @@
   text-decoration: none;
 }
 
-.navMenuItem:hover {
-  text-decoration: underline;
+.navMenuLogoutButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  margin: 0;
+  padding: 1rem 0;
+  font-size: 1.6em;
+  color: #ffffff;
+  text-decoration: none;
+  border: none;
+  background-color: inherit;
 }
 
 .menuCancelButtonContainer {

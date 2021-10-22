@@ -13,6 +13,10 @@ export default function Nav({ user, logout }) {
     logout();
     history.push("/")
   }
+  const handleNavMenuLogoutClick = () => {
+    logout();
+    handleClick();
+  }
   
   return(
     <div className={styles.container}>
@@ -49,9 +53,25 @@ export default function Nav({ user, logout }) {
                 <img src={cancelIcon} alt="x-icon" style={{width: "36px"}}/>
               </button>
             </div>
-            <Link to="/" className={styles.navMenuItem}>Home</Link>
-            <Link to="/about" className={styles.navMenuItem}>About</Link>
-            <Link to="/leaderboard" className={styles.navMenuItem}>Leaderboard</Link>
+            <Link to="/" onClick={handleClick} className={styles.navMenuItem}>Home</Link>
+            <Link to="/about" onClick={handleClick} className={styles.navMenuItem}>About</Link>
+            <Link to="/leaderboard" onClick={handleClick} className={styles.navMenuItem}>Leaderboard</Link>
+            {
+              user === null ?
+                <div>
+                  <Link to="/login" onClick={handleClick} className={styles.navMenuItem}>Log in</Link>
+                  <Link to="/signup" onClick={handleClick} className={styles.navMenuItem}>Sign up</Link>
+                </div>
+                :
+                <div>
+                  <Link to="/user" onClick={handleClick} className={styles.navMenuItem}>My Profile</Link>
+                  {
+                    user.roles.includes("ROLE_ADMIN") &&
+                    <Link to="/admin" onClick={handleClick} className={styles.navMenuItem}>Admin</Link>
+                  }
+                  <button className={styles.navMenuLogoutButton} onClick={handleNavMenuLogoutClick}>Logout</button>
+                </div>
+            }
           </nav>
           :
           <button onClick={handleClick} className={styles.navButton}>
